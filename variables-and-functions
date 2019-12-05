@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#this file declares all Variables used in CLI-installers.sh
+
+
+
+
+
+
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+#                       functions                         #
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
+
+
+
+function EXIT() {
+  echo Exit reason: $exiterror
+  exit 1
+
+
+}
