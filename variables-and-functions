@@ -2,16 +2,28 @@
 
 #this file declares all Variables used in CLI-installers.sh
 
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+#                       Variables                         #
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 
+#Saves the directory that the ./cli-launcher was run from to $DIR
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+#Array used to store software names that can be installed.
+softwarenamearray=()
 
+#array used to document if root is needed to run the software.
+needrootarray=()
 
 
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 #                       functions                         #
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+function START() {
+  clear
 
 
+}
 
 
 function EXIT() {
