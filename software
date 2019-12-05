@@ -9,10 +9,17 @@
 
 
 #softwarenamearray+=( "" )
+#softwarecmd+=( "" )
 #softwaredescriptionarray+=( "" )
 #needrootarray+=( "" )
+#directorycheckneeded+=( "" )
+#installdirectory+=( "" )
+      #if referencing a directory in home, use the $HOME variable instead of "~/"
 
 
-softwarenamearray+=( "" )
-softwaredescriptionarray+=( "" )
-needrootarray+=( "" )
+softwarenamearray+=( "Public IP" )
+softwarecmd+=( "publicip" )
+softwaredescriptionarray+=( "Displays the current public IP of the system the script is run on." )
+needrootarray+=( "no" )
+directorycheckneeded+=( "yes" )
+installdirectory+=( "$HOME/bin/" )

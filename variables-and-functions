@@ -12,18 +12,96 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 #Array used to store software names that can be installed.
 softwarenamearray=()
 
+#The command of the scprit/software
+softwarecmd=()
+
 #array used to document if root is needed to run the software.
 needrootarray=()
 
+#A simple description of the software
+softwaredescriptionarray=()
+
+#Is a directory check needed?
+directorycheckneeded=()
+
+#directory to install the scripts
+installdirectory=()
 
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 #                       functions                         #
 #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 function START() {
+clear
+}
+
+
+function MENU() {
+#this fucntion displays a simple menu and prompts the user to enter a number matching the software they want to install
   clear
+  #prints out the list of software available to run
+  for i in "${!softwarenamearray[@]}"; do
+    printf "%s\t%s\n" "$i" "${softwarenamearray[$i]}"
+  done
+  echo "enter "q" to quit"
+  #pring a blank line
+  printf '\n'
+  #ask the user for input
+  echo "Which Program do you want to install?"
+  #saves the users input to the $index variable
+  #the $index variable is used to call all variables in the arrays in the software source file.
+  read index
+  exiterror="exited in menu fuction after reading value."
+}
+
+function VALIDATE() {
+  #This function is used to confirm with the user if they do in fact want to install the selected softwarecmdarray
+  clear
+  echo "${softwarenamearray[$index]} has been selected.  Do you want to install this? [y/n]"
+  read YN
+  if [ "$YN" = "y" ];then
+    echo "Installing ${softwarenamearray[$index]}"
+    sleep 1
+          exiterror="completed VALIDATE y/n.  Exited after selecting y"
+    INSTALL
+  else
+    echo "Install Canceled."
+    sleep 5
+    exiterror="competed VALIDATE y/n. Exited after selecting n"
+    MENU
+  fi
+}
+
+function INSTALL() {
+  exiterror="Existed after INSTALL function started."
+    #Installs the actual software
+    #do we need to check for a directory?
+  if [ "${directorycheckneeded[$index]}" = "yes" ]; then
+      exiterror="In INSTALL function, after validating if directory check is needed."
+    DIRCCHECK
+  else
+    exiterror="In INSTALL function, after it's determed that a directory check is not needed."
+    echo "${directorycheckneeded[$index]} already exists!"
+  fi
+
+  echo "returend to INSTALL script. ready to continue."
+  exiterror="DIRcheck complete, back in INSTALL function."
 
 
 }
+
+
+function DIRCCHECK() {
+  exiterror="DIRCHECK started, before if statement."
+  #this function is used to check if the necessary directory exists for the selected software. If it doesn't, it's created.
+  if [ ! -d "${installdirectory[$index]}" ]; then
+    exiterror="DIRCHECK running, middle of if statement."
+    mkdir -p "${installdirectory[$index]}"
+  fi
+exiterror="DIRCHECK complete. directory should have either existed already or was created."
+sleep 1
+}
+
+
 
 
 function EXIT() {
