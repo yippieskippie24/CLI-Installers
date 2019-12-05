@@ -59,11 +59,13 @@ function VALIDATE() {
   echo "${softwarenamearray[$index]} has been selected.  Do you want to install this? [y/n]"
   read YN
   if [ "$YN" = "y" ];then
+    clear
     echo "Installing ${softwarenamearray[$index]}"
     sleep 1
           exiterror="completed VALIDATE y/n.  Exited after selecting y"
     INSTALL
   else
+    clear
     echo "Install Canceled."
     sleep 5
     exiterror="competed VALIDATE y/n. Exited after selecting n"
@@ -82,11 +84,18 @@ function INSTALL() {
     exiterror="In INSTALL function, after it's determed that a directory check is not needed."
     echo "${directorycheckneeded[$index]} already exists!"
   fi
-
-  echo "returend to INSTALL script. ready to continue."
   exiterror="DIRcheck complete, back in INSTALL function."
 
+  #copy script to install directory
+  cp "$DIR"/software-dir/"${softwarecmd[$index]}" "${installdirectory[$index]}"
+  exiterror="INSTALL - cp command"
+  #make script executiable
+  chmod +x "${installdirectory[$index]}"/"${softwarecmd[$index]}"
+  exiterror="INSTALL - chmod command."
 
+  echo "${softwarenamearray[$index]} has been installed. It can be exceuted by running '${softwarecmd[$index]}'."
+  exiterror="Install complete."
+  cleanexit="yes"
 }
 
 
@@ -105,7 +114,10 @@ sleep 1
 
 
 function EXIT() {
-  echo Exit reason: $exiterror
+  if [ ! "$cleanexit" = "yes" ]; then
+    echo Exit reason: $exiterror
+    exit
+  fi
   exit 1
 
 
